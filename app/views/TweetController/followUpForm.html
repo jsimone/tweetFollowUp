@@ -1,0 +1,15 @@
+<h1>Assign a follow up to a Tweet</h1>
+<h2>Tweet<h2>
+<ul>
+<li>author: ${tweet.author}
+<li>body: ${tweet.body}
+</ul>
+
+<form method="post" action="/tweets/${tweet.id}/followUp">
+	<select name="userId">
+		#{list users, as:'user'}
+			<option value="${user.id}">${user.name}</option>
+		#{/list}
+	</select>
+	<input type="submit"/>
+</form>

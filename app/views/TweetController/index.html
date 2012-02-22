@@ -1,0 +1,9 @@
+<html>
+<h1>Tweets:</h1>
+<table>
+<tr><th>id</th><th>author</th><th>body</th></tr>
+#{list tweets, as:'tweet'}
+	<tr><td>${tweet.id}</td><td>${tweet.author}</td><td>${tweet.body}</td></tr>
+#{/list}
+</table>
+</html>

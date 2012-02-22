@@ -1,0 +1,12 @@
+Tweet(one):
+  author: j_simone
+  body: this is test tweet 1
+Tweet(two):
+  author: j_simone
+  body: this is test tweet 2
+User(joe):
+  name: Joe Testguy
+  email: joe@fake.com
+User(bill):
+  name: Bill Fakington
+  email: bill@fake.com
