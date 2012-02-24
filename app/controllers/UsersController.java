@@ -8,8 +8,6 @@ public class UsersController extends Controller {
 
 	public static void index(Long id) {
 		User user = User.findById(id);
-		//Tweet.find(", params)
-		
 		render(user);
 	}
 }
