@@ -2,3 +2,4 @@
 
 require:
     - play
+    - org.twitter4j -> twitter4j-core 2.2.5

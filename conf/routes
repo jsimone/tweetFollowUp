@@ -8,6 +8,7 @@ GET     /                                       Application.index
 GET     /tweets                                 TweetController.index
 GET     /tweets/{id}/followUp            		TweetController.followUpForm
 POST    /tweets/{tweetId}/followUp              TweetController.addFollowUp
+GET     /tweets/updateTweets					TweetController.updateTweets
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -12,6 +12,8 @@ public class Tweet extends Model {
 
 	private String author;
 	private String body;
+	private Date createdAt;
+	private long statusId;
 	@ManyToOne
 	private User user;
 
@@ -26,6 +28,18 @@ public class Tweet extends Model {
 	}
 	public void setBody(String body) {
 		this.body = body;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public long getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(long statusId) {
+		this.statusId = statusId;
 	}
 	public User getUser() {
 		return user;

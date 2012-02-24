@@ -1,9 +1,13 @@
 Tweet(1):
   author: j_simone
   body: this is test tweet 1
+  createdAt: 2001-01-01
+  statusId: 0
 Tweet(2):
   author: j_simone
   body: this is test tweet 2
+  createdAt: 2001-01-01
+  statusId: 1
 User(1):
   name: Joe Testguy
   email: joe@fake.com
