@@ -1,12 +1,12 @@
-Tweet(one):
+Tweet(1):
   author: j_simone
   body: this is test tweet 1
-Tweet(two):
+Tweet(2):
   author: j_simone
   body: this is test tweet 2
-User(joe):
+User(1):
   name: Joe Testguy
   email: joe@fake.com
-User(bill):
+User(2):
   name: Bill Fakington
   email: bill@fake.com
