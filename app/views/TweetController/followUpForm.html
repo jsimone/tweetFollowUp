@@ -1,15 +1,32 @@
-<h1>Assign a follow up to a Tweet</h1>
-<h2>Tweet<h2>
-<ul>
-<li>author: ${tweet.author}
-<li>body: ${tweet.body}
-</ul>
+<html>
+<head>
+	<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet"/>
+</head>
 
-<form method="post" action="/tweets/${tweet.id}/followUp">
-	<select name="userId">
-		#{list users, as:'user'}
-			<option value="${user.id}">${user.name}</option>
-		#{/list}
-	</select>
-	<input type="submit"/>
-</form>
+<body>
+	<div class="container">
+		<div class="page-header">
+			<h1>Assign a follow up</h1>
+		</div>
+	</div>
+	
+	<div class="container">
+		<dl>
+			<dt>author</dt> 
+			<dd>${tweet.author}</dd>
+			<dt>body</dt>
+			<dd>${tweet.body}</dd>
+		</dl>
+
+		<form method="post" action="/tweets/${tweet.id}/followUp" class="well form-inline">
+			<select name="userId">
+				#{list users, as:'user'}
+					<option value="${user.id}">${user.name}</option>
+				#{/list}
+			</select>
+			<button type="submit" class="btn">Assign Tweet</button>
+		</form>
+
+	</div>
+</body>
+</html>
