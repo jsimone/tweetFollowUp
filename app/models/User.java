@@ -1,10 +1,12 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import play.db.jpa.Model;
 
 @Entity
+@Table(name="Users")
 public class User extends Model {
 
 	private String name;
