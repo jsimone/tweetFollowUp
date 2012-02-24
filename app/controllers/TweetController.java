@@ -38,25 +38,6 @@ public class TweetController extends Controller{
 		index();
 	}
 	
-	private static Date getLatestTweet() {
-		Connection conn = DB.getConnection();
-		
-		try {
-			// Get a statement from the connection
-			Statement stmt = conn.createStatement() ;
-			// Execute the query
-			ResultSet rs = stmt.executeQuery("SELECT max(createdAt) from tweet") ;
-			
-			rs.next();
-			return new Date(rs.getDate(1).getTime());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return new Date(0);
-		} finally {
-			DB.close();
-		}
-	}
-	
 	private static long getLatestStatusId() {
 		Connection conn = DB.getConnection();
 		
