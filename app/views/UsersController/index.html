@@ -7,18 +7,18 @@
     
 <div class="container">
 	<div class="page-header">
-		<h1>Tweets <small>welcome, <a href="/user/${userId}">${userName}</a></small></h1>
+		<h1>${user.name}</h1>
 	</div>
 	
+	<h2>Assigned Tweets:</h2>
 	<table class="table table-bordered table-striped">
-	<tr><th>id</th><th>time</th><th>author</th><th>body</th><th>owner</th></tr>
-	#{list tweets, as:'tweet'}
+	<tr><th>id</th><th>time</th><th>author</th><th>body</th></tr>
+	#{list user.tweets, as:'tweet'}
 		<tr>
-			<td><a href="/tweets/${tweet.id}/followUp">${tweet.id}</a>
+			<td>${tweet.id}</td>
 			<td>${tweet.createdAt}</td>
-			</td><td>${tweet.author}</td>
+			<td>${tweet.author}</td>
 			<td>${tweet.body}</td>
-			<td>#{if tweet.user != null}${tweet.user.name}#{/if}</td>
 		</tr>
 	#{/list}
 	</table>

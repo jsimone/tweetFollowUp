@@ -34,6 +34,19 @@ public class TweetController extends Controller{
 	public static void login() {
 	    render();
 	}
+	
+	private static long addUser(String name, String email) {
+		List<User> users = User.find("byEmail", email).fetch();
+		if(users.size() == 0) {
+			User user = new User();
+			user.setName(name);
+			user.setEmail(email);
+			user.save();
+			return user.getId();
+		} else {
+			return users.get(0).getId();
+		}
+	}
 	    
 	public static void authenticate() {
 	    if(OpenID.isAuthenticationResponse()) {
@@ -44,10 +57,13 @@ public class TweetController extends Controller{
 	        } 
 	        
 	        String email = verifiedUser.extensions.get("email");
-	        System.out.println(verifiedUser.extensions);
+	        String firstName = verifiedUser.extensions.get("firstName");
+	        String lastName = verifiedUser.extensions.get("lastName");
 	        if(email != null) {
 	        	session.put("user", verifiedUser.id);
 	        	session.put("email", email);
+	        	session.put("name", firstName);
+	        	session.put("userId", addUser(firstName + " " + lastName, email));
 	        	index();	        	
 	        }
 	    } else {
@@ -60,7 +76,9 @@ public class TweetController extends Controller{
 	
 	public static void index() {
 		List<Tweet> tweets = Tweet.findAll();
-		render(tweets);
+		String userName = session.get("name");
+		String userId = session.get("userId");
+		render(tweets, userName, userId);
 	}
 	
 	public static void followUpForm(Long id) {
