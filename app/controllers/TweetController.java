@@ -20,6 +20,11 @@ public class TweetController extends Controller{
 	}
 	
 	public static void addFollowUp(Long tweetId, Long userId) {
+		Tweet tweet = Tweet.findById(tweetId);
+		User user = User.findById(userId);
+		tweet.setUser(user);
+		tweet.save();
+		index();
 	}
 	
 }
