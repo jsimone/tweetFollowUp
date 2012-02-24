@@ -4,12 +4,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import models.Tweet;
 import models.User;
 import play.db.DB;
+import play.libs.OpenID;
+import play.libs.OpenID.UserInfo;
+import play.mvc.Before;
 import play.mvc.Controller;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -19,6 +24,40 @@ import twitter4j.TwitterFactory;
 
 public class TweetController extends Controller{
 
+	@Before(unless={"login", "authenticate", "updateTweets"})
+	static void checkAuthenticated() {
+	    if(!session.contains("user")) {
+	        authenticate();
+	    }
+	}
+	     
+	public static void login() {
+	    render();
+	}
+	    
+	public static void authenticate() {
+	    if(OpenID.isAuthenticationResponse()) {
+	        UserInfo verifiedUser = OpenID.getVerifiedID();
+	        if(verifiedUser == null) {
+	            flash.put("error", "Oops. Authentication has failed. Could be an issue with Google");
+	            login();
+	        } 
+	        
+	        String email = verifiedUser.extensions.get("email");
+	        System.out.println(verifiedUser.extensions);
+	        if(email != null) {
+	        	session.put("user", verifiedUser.id);
+	        	session.put("email", email);
+	        	index();	        	
+	        }
+	    } else {
+	    	OpenID.id("https://www.google.com/accounts/o8/id")
+	    		.required("email", "http://axschema.org/contact/email")
+	    		.required("firstName", "http://axschema.org/namePerson/first")
+	    		.required("lastName", "http://axschema.org/namePerson/last").verify();
+	    }
+	}
+	
 	public static void index() {
 		List<Tweet> tweets = Tweet.findAll();
 		render(tweets);
@@ -45,7 +84,7 @@ public class TweetController extends Controller{
 			// Get a statement from the connection
 			Statement stmt = conn.createStatement() ;
 			// Execute the query
-			ResultSet rs = stmt.executeQuery("SELECT max(statusId) from tweet") ;
+			ResultSet rs = stmt.executeQuery("SELECT max(statusId) from tweet");
 			
 			if(rs.next()) {
 				return rs.getLong(1);
