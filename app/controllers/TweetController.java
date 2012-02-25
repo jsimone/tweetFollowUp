@@ -24,17 +24,17 @@ import twitter4j.TwitterFactory;
 
 public class TweetController extends Controller{
 
-	@Before(unless={"login", "authenticate", "updateTweets"})
+	@Before(unless={"unauthorized", "authenticate", "updateTweets"})
 	static void checkAuthenticated() {
 	    if(!session.contains("user")) {
 	        authenticate();
 	    }
 	}
 	     
-	public static void login() {
+	public static void unauthorized() {
 	    render();
 	}
-	
+
 	private static long addUser(String name, String email) {
 		List<User> users = User.find("byEmail", email).fetch();
 		if(users.size() == 0) {
@@ -52,8 +52,8 @@ public class TweetController extends Controller{
 	    if(OpenID.isAuthenticationResponse()) {
 	        UserInfo verifiedUser = OpenID.getVerifiedID();
 	        if(verifiedUser == null) {
-	            flash.put("error", "Oops. Authentication has failed. Could be an issue with Google");
-	            login();
+	            flash.error("Oops. Authentication has failed. Could be an issue with Google");
+	            unauthorized();
 	        } 
 	        
 	        String email = verifiedUser.extensions.get("email");
